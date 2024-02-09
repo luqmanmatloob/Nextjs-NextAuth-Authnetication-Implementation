@@ -1,8 +1,11 @@
+// import Register from 'src/Components/Register'
+
+import Register from '/src/Components/Register'
 
 export default function Home() {
   return (
     <main>
-    <h1>hello</h1>
+      <Register />
     </main>
   );
 }
