@@ -1,17 +1,18 @@
 "use client"
-
 import { useState } from 'react';
 
 export default function SignUpForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // I will add  submission logic here
-    console.log('Form submitted:', { firstName, lastName, email });
+    // Add submission logic here
+    console.log('Form submitted:', { firstName, lastName, email, password, confirmPassword });
   };
 
   return (
@@ -33,6 +34,14 @@ export default function SignUpForm() {
           <div>
             <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">Email</label>
             <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+          </div>
+          <div>
+            <label htmlFor="password" className="block text-sm font-semibold leading-6 text-gray-900">Password</label>
+            <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+          </div>
+          <div>
+            <label htmlFor="confirm-password" className="block text-sm font-semibold leading-6 text-gray-900">Confirm Password</label>
+            <input type="password" id="confirm-password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
           </div>
         </div>
         <div className="mt-10">
