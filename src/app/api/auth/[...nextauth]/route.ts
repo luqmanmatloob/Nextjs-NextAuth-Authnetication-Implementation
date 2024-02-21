@@ -1,15 +1,36 @@
-import NextAuth from "next-auth";
-import GitHubProvider from "next-auth/providers/github";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions = {
+const authOptions: NextAuthOptions = {
+  session: {
+    strategy: "jwt",
+  },
   providers: [
-    GitHubProvider({
-      clientId: process.env.GITHUB_ID ?? "",
-      clientSecret: process.env.GITHUB_SECRET ?? "",
+    CredentialsProvider({
+      type: "credentials",
+      credentials: {},
+      authorize(credentials, req) {
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
+        // perform you login logic
+        // find out user from db
+        if (email !== "john@gmail.com" || password !== "1234") {
+          throw new Error("invalid credentials");
+        }
+
+        // if everything is fine
+        return {
+          id: "1234",
+          name: "John Doe",
+          email: "john@gmail.com",
+          role: "admin",
+        };
+      },
     }),
-  ],
+  ]
+
 };
 
-export const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST };
+export default NextAuth(authOptions);
