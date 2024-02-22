@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import { AuthProvider } from "./Providers";
 import NextTopLoader from 'nextjs-toploader';
 import "./globals.css";
 
@@ -26,7 +27,7 @@ export default function RootLayout({ children }) {
         />
 
 
-        {children}
+<AuthProvider>{children}</AuthProvider>
 
       </body>
     </html>

@@ -1,36 +1,48 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import connectMongoDB  from "../../../../db/connect";
+import User from "../../../../models/user";
+import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
 
-const authOptions: NextAuthOptions = {
+export const authOptions = {
+  providers: [
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {},
+
+      async authorize(credentials) {
+        const { email, password } = credentials;
+
+        try {
+          await connectMongoDB();
+          const user = await User.findOne({ email });
+
+          if (!user) {
+            return null;
+          }
+
+          const passwordsMatch = await bcrypt.compare(password, user.password);
+
+          if (!passwordsMatch) {
+            return null;
+          }
+
+          return user;
+        } catch (error) {
+          console.log("Error: ", error);
+        }
+      },
+    }),
+  ],
   session: {
     strategy: "jwt",
   },
-  providers: [
-    CredentialsProvider({
-      type: "credentials",
-      credentials: {},
-      authorize(credentials, req) {
-        const { email, password } = credentials as {
-          email: string;
-          password: string;
-        };
-        // perform you login logic
-        // find out user from db
-        if (email !== "john@gmail.com" || password !== "1234") {
-          throw new Error("invalid credentials");
-        }
-
-        // if everything is fine
-        return {
-          id: "1234",
-          name: "John Doe",
-          email: "john@gmail.com",
-          role: "admin",
-        };
-      },
-    }),
-  ]
-
+  secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: "/",
+  },
 };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };
