@@ -1,10 +1,7 @@
 
 const getMsg = async () => {
   try {
-    // const res = await fetch("http://localhost:3000/api/tweet", {
-
-    // while deploying this link works above link dosent 
-    const res = await fetch("https://luqbook.vercel.app/api/tweet", {
+    const res = await fetch(process.env.SITE_URL + "/api/tweet", {
       cache: "no-store",
     });
 
