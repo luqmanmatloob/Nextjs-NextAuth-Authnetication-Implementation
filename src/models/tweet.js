@@ -4,6 +4,7 @@ const tweetSchema = new Schema(
   {
     title: String,
     description: String,
+    username: String,
     email: String,
     
   },

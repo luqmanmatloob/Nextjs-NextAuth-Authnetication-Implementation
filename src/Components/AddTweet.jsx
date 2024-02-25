@@ -1,12 +1,8 @@
-"use client";
-
+'use client'
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 
-
-
-
-export default function SendMsg() {
+export default function AddTweet() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -29,36 +25,31 @@ export default function SendMsg() {
         body: JSON.stringify({
           title,
           description,
-          email: session.data.user.email  // Here, it should be "email" instead of "emial"
-
+          username: session.data.user.name, // Assuming _id is the MongoDB unique ID field
+          email: session.data.user.email,
         }),
+        
       });
-console.log(id)
       if (res.ok) {
-
         setTitle('');
         setDescription('');
-        console.log("msg send successfuly")
+        console.log("msg sent successfully")
         reloadAndScrollToBottom(); // Call the function to reload and scroll to bottom
-
-
-
       } else {
         throw new Error("Failed to create a Note");
       }
     } catch (error) {
       console.log(error);
     }
-
-
   };
 
   return (
+    <>
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <input
         onChange={(e) => setTitle(e.target.value)}
         value={title}
-        className="border border-slate-500 px-8 py-2 bg-[#b8feff] rounded-md"
+        className="border border-slate-500 px-8 py-2 bg-[#] rounded-md"
         type="text"
         placeholder="tweet Title"
       />
@@ -66,18 +57,19 @@ console.log(id)
       <input
         onChange={(e) => setDescription(e.target.value)}
         value={description}
-        className="border border-slate-500 px-8 py-2 bg-[#b8feff] rounded-md"
+        className="border border-slate-500 px-8 py-2 bg-[#] rounded-md"
         type="text"
         placeholder="tweet Text"
       />
 
       <button
         type="submit"
-        className="bg-green-600 font-bold rounded-md text-white py-3 px-6 w-fit hover:bg-green-800 active:bg-green-950 cursor-pointer transition duration-300 ease-in-out "
+        className="bg-white font-bold rounded-md text-black py-3 px-6 w-fit hover:bg-slate-200 active:bg-green-950 cursor-pointer transition duration-300 ease-in-out "
       >
-        Done
-
+        Tweet
       </button>
     </form>
+
+    </>
   );
 }

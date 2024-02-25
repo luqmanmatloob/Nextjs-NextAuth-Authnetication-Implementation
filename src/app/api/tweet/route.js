@@ -22,3 +22,12 @@ export const POST = async (request) => {
       return new NextResponse("Database Error", { status: 500 });
     }
   };
+
+
+
+  
+export async function GET() {
+  await connectMongoDB();
+  const tweet = await Tweet.find();
+  return NextResponse.json({ tweet });
+}

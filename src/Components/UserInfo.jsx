@@ -16,7 +16,10 @@ export default function UserInfo() {
           Email: <span className="font-bold">{session?.user?.email}</span>
         </div>
         <div>
-          Id: <span className="font-bold">{session?.user?.id}</span>
+          Id: <span className="font-bold">{session?.user?._id}</span>
+        </div>
+        <div>
+          Password: <span className="font-bold">{session?.user?.password}</span>
         </div>
 
 
