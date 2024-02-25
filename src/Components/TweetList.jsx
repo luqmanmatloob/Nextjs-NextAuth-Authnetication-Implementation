@@ -30,6 +30,7 @@ export default async function TweetList() {
           <div>
             <h2 className="font-bold text-2xl">{t.title}</h2>
             <div>{t.description}</div>
+            <div className="font-semibold mt-2">Tweeted by: {t.username}</div>
           </div>
 
           <div className="flex gap-2">

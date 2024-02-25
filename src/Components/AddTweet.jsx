@@ -1,6 +1,8 @@
 'use client'
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 
 export default function AddTweet() {
   const [title, setTitle] = useState("");
@@ -34,7 +36,7 @@ export default function AddTweet() {
         setTitle('');
         setDescription('');
         console.log("msg sent successfully")
-        reloadAndScrollToBottom(); // Call the function to reload and scroll to bottom
+        window.location.reload(); 
       } else {
         throw new Error("Failed to create a Note");
       }
