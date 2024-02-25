@@ -6,7 +6,7 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import RegisterForm from "../../Components/RegisterForm";
 
-import './globals.css'
+// import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
